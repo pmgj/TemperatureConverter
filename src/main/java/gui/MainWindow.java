@@ -32,6 +32,18 @@ public class MainWindow {
             { new KelvinToCelsiusConverter(), new KelvinToFahrenheitConverter(), new IdentityConverter() }
     };
 
+    private void compute() {
+        try {
+            double temp = Double.parseDouble(inputTemp.getText());
+            int row = fromTemp.getSelectedIndex();
+            int col = toTemp.getSelectedIndex();
+            Converter converter = matrix[row][col];
+            outputTemp.setText(String.valueOf(converter.convert(temp)));
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
     public MainWindow() {
         this.jframe = new JFrame("Temperature Converter");
         this.jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,30 +56,15 @@ public class MainWindow {
         inputTemp = new JTextField();
         inputTemp.getDocument().addDocumentListener(new DocumentListener() {
             public void changedUpdate(DocumentEvent e) {
-                warn();
+                compute();
             }
 
             public void removeUpdate(DocumentEvent e) {
-                warn();
+                compute();
             }
 
             public void insertUpdate(DocumentEvent e) {
-                warn();
-            }
-
-            public void warn() {
-                try {
-                    double temp = Double.parseDouble(inputTemp.getText());
-                    System.out.println(temp);
-                    int row = fromTemp.getSelectedIndex();
-                    int col = toTemp.getSelectedIndex();
-                    System.out.println(row);
-                    System.out.println(col);
-                    Converter converter = matrix[row][col];
-                    outputTemp.setText(String.valueOf(converter.convert(temp)));
-                } catch (Exception ex) {
-
-                }
+                compute();
             }
         });
         c.add(inputTemp);

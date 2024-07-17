@@ -1,9 +1,9 @@
-package v1;
+package model;
 
-public class CelsiusToKelvinConverter implements Converter {
+public class KelvinToCelsiusConverter implements Converter {
     @Override
     public double convert(double temperature) {
-        return temperature + 273.15;
+        return temperature - 273.15;
     }
 
     @Override

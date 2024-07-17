@@ -1,4 +1,4 @@
-package v1;
+package model;
 
 public class FahrenheitToCelsiusConverter implements Converter {
     @Override

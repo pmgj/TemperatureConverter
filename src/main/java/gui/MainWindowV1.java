@@ -1,4 +1,4 @@
-package v1;
+package gui;
 
 import java.awt.Container;
 import java.awt.GridLayout;
@@ -10,7 +10,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class MainWindow extends KeyAdapter {
+import model.CelsiusToFahrenheitConverter;
+import model.CelsiusToKelvinConverter;
+import model.Converter;
+import model.FahrenheitToCelsiusConverter;
+import model.FahrenheitToKelvinConverter;
+import model.IdentityConverter;
+import model.KelvinToCelsiusConverter;
+import model.KelvinToFahrenheitConverter;
+
+public class MainWindowV1 extends KeyAdapter {
     private JFrame jframe;
     private JComboBox<String> fromTemp;
     private JComboBox<String> toTemp;
@@ -35,7 +44,7 @@ public class MainWindow extends KeyAdapter {
         }
     }
 
-    public MainWindow() {
+    public MainWindowV1() {
         this.jframe = new JFrame("Temperature Converter");
         this.jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Container c = this.jframe.getContentPane();
@@ -49,6 +58,7 @@ public class MainWindow extends KeyAdapter {
         inputTemp.addKeyListener(this);
         c.add(inputTemp);
         toTemp = new JComboBox<String>(temps);
+        toTemp.setSelectedIndex(1);
         toTemp.addKeyListener(this);
         c.add(toTemp);
         outputTemp = new JLabel();
@@ -60,6 +70,6 @@ public class MainWindow extends KeyAdapter {
     }
 
     public static void main(String[] args) {
-        new MainWindow();
+        new MainWindowV1();
     }
 }

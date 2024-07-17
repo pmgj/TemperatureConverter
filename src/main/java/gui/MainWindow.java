@@ -2,13 +2,13 @@ package gui;
 
 import java.awt.Container;
 import java.awt.GridLayout;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 import model.CelsiusToFahrenheitConverter;
 import model.CelsiusToKelvinConverter;
@@ -19,7 +19,7 @@ import model.IdentityConverter;
 import model.KelvinToCelsiusConverter;
 import model.KelvinToFahrenheitConverter;
 
-public class MainWindow {
+public class MainWindow extends KeyAdapter {
     private JFrame jframe;
     private JComboBox<String> fromTemp;
     private JComboBox<String> toTemp;
@@ -32,13 +32,13 @@ public class MainWindow {
             { new KelvinToCelsiusConverter(), new KelvinToFahrenheitConverter(), new IdentityConverter() }
     };
 
-    private void compute() {
+    public void keyReleased(KeyEvent ke) {
         try {
             double temp = Double.parseDouble(inputTemp.getText());
             int row = fromTemp.getSelectedIndex();
             int col = toTemp.getSelectedIndex();
             Converter converter = matrix[row][col];
-            outputTemp.setText(String.valueOf(converter.convert(temp)));
+            outputTemp.setText(String.format("%.2f", converter.convert(temp)));
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
@@ -52,27 +52,18 @@ public class MainWindow {
         c.setLayout(layout);
         String[] temps = new String[] { "Celsius", "Fahrenheit", "Kelvin" };
         fromTemp = new JComboBox<String>(temps);
+        fromTemp.addKeyListener(this);
         c.add(fromTemp);
         inputTemp = new JTextField();
-        inputTemp.getDocument().addDocumentListener(new DocumentListener() {
-            public void changedUpdate(DocumentEvent e) {
-                compute();
-            }
-
-            public void removeUpdate(DocumentEvent e) {
-                compute();
-            }
-
-            public void insertUpdate(DocumentEvent e) {
-                compute();
-            }
-        });
+        inputTemp.addKeyListener(this);
         c.add(inputTemp);
         toTemp = new JComboBox<String>(temps);
+        toTemp.addKeyListener(this);
         c.add(toTemp);
         outputTemp = new JLabel();
         c.add(outputTemp);
-        this.jframe.pack();
+        this.jframe.setSize(300, 100);
+        // this.jframe.pack();
         this.jframe.setVisible(true);
         inputTemp.requestFocus();
     }

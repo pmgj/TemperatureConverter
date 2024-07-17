@@ -1,4 +1,4 @@
-package gui;
+package v1;
 
 import java.awt.Container;
 import java.awt.GridLayout;
@@ -9,15 +9,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-
-import model.CelsiusToFahrenheitConverter;
-import model.CelsiusToKelvinConverter;
-import model.Converter;
-import model.FahrenheitToCelsiusConverter;
-import model.FahrenheitToKelvinConverter;
-import model.IdentityConverter;
-import model.KelvinToCelsiusConverter;
-import model.KelvinToFahrenheitConverter;
 
 public class MainWindow extends KeyAdapter {
     private JFrame jframe;

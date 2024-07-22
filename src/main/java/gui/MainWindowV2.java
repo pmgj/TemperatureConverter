@@ -30,10 +30,8 @@ public class MainWindowV2 extends KeyAdapter {
     public void keyReleased(KeyEvent ke) {
         try {
             double temp = Double.parseDouble(inputTemp.getText());
-            int i1 = jcbFromTemperature.getSelectedIndex();
-            int i2 = jcbToTemperature.getSelectedIndex();
-            Converter converter1 = fromTemp[i1];
-            Converter converter2 = toTemp[i2];
+            Converter converter1 = (Converter) jcbFromTemperature.getSelectedItem();
+            Converter converter2 = (Converter) jcbToTemperature.getSelectedItem();
             outputTemp.setText(String.format("%.2f", converter2.convert(converter1.convert(temp))));
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
